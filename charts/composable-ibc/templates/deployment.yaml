@@ -5,9 +5,7 @@ metadata:
   labels:
     {{- include "composable-ibc.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "composable-ibc.selectorLabels" . | nindent 6 }}
@@ -27,24 +25,46 @@ spec:
       serviceAccountName: {{ include "composable-ibc.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: config-a
+          secret:
+            secretName: config-a
+        - name: config-b
+          secret:
+            secretName: config-b
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+          args:
+            {{- toYaml .Values.args | nindent 12 }}
+          volumeMounts:
+            - name: config-a
+              readOnly: true
+              mountPath: "/opt/hyperspace/config-a"
+              subPath: config-a
+            - name: config-b
+              readOnly: true
+              mountPath: "/opt/hyperspace/config-b"
+              subPath: config-b
+          # ports:
+          #   - name: http
+          #     containerPort: 80
+          #     protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - "ps -A | grep hyperspace"
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
