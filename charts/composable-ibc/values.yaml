@@ -1,8 +1,26 @@
+
+# -- Provide a name in place of node for `app:` labels
+nameOverride: ""
+
+# -- Provide a name to substitute for the full names of resources
+fullnameOverride: ""
+
+# -- Additional common labels on pods and services
+extraLabels: {}
+
+
+# -- Number of replicas
 replicaCount: 1
 
+# -- Image of relayer.
 image:
+  # -- Image repository
   repository: composablefi/composable-ibc
+
+  # -- Image pull policy
   pullPolicy: IfNotPresent
+
+  # -- Image tag
   tag: "master"
 
 imagePullSecrets: []
