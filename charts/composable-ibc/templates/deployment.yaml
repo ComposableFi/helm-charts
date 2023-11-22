@@ -32,6 +32,10 @@ spec:
         - name: config-b
           secret:
             secretName: config-b
+        - name: config-core
+          configMap:
+            defaultMode: 0600
+            name: {{ include "composable-ibc.fullname" . }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -49,6 +53,10 @@ spec:
               readOnly: true
               mountPath: "/opt/hyperspace/config-b"
               subPath: config-b
+            - name: config-core
+              readOnly: true
+              mountPath: "/opt/hyperspace/config-core"
+              subPath: config-core
           # ports:
           #   - name: http
           #     containerPort: 80

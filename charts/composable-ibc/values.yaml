@@ -33,11 +33,11 @@ serviceAccount:
 args:
   - relay
   - --config-a
-  - /config-a.toml
+  - /opt/hyperspace/config-a.toml
   - --config-b
-  - /config-b.toml
+  - /opt/hyperspace/config-b.toml
   - --config-core
-  - /config-core.toml
+  - /opt/hyperspace/config-core.toml
 
 podAnnotations: {}
 
