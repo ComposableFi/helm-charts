@@ -3,6 +3,16 @@ entries:
   composable-ibc:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-11-22T15:13:34.444318791Z"
+    description: A Helm chart withy deployment manifests of composable-ibc for Kubernetes
+    digest: 2af63ecc64b18ff6ec880260c1a3e278f237f3d962efe8027681add22703f7d6
+    name: composable-ibc
+    type: application
+    urls:
+    - https://github.com/ComposableFi/helm-charts/releases/download/composable-ibc-0.1.5/composable-ibc-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-11-22T14:55:24.796715617Z"
     description: A Helm chart withy deployment manifests of composable-ibc for Kubernetes
     digest: 8c70d8fc1c34889d6a98b2453648549ec8618ee5dce80a6f3fe36ce73fc69ebb
@@ -62,4 +72,4 @@ entries:
     urls:
     - https://github.com/ComposableFi/helm-charts/releases/download/indexer-0.1.0/indexer-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-22T14:55:24.796740804Z"
+generated: "2023-11-22T15:13:34.444353195Z"
