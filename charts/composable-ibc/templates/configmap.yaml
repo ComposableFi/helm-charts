@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "composable-ibc.fullname" . }}
+  name: {{ include "composable-ibc.fullname" . }}-core
   labels:
     {{- include "composable-ibc.labels" . | nindent 4 }}
 data:
-  config-core.toml: |-
+  config-core.toml: |
     prometheus_endpoint = {{ .Values.config.prometheus_endpoint | quote }}
