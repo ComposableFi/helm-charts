@@ -37,7 +37,7 @@ args:
   - --config-b
   - /opt/hyperspace/config-b.toml
   - --config-core
-  - /opt/hyperspace/config-core.toml
+  - /opt/hyperspace/config-core/config-core.toml
 
 podAnnotations: {}
 
