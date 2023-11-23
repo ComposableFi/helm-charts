@@ -50,11 +50,9 @@ spec:
             - name: config-a
               readOnly: true
               mountPath: "/opt/hyperspace/config-a"
-              subPath: config-a
             - name: config-b
               readOnly: true
               mountPath: "/opt/hyperspace/config-b"
-              subPath: config-b
             - name: config-core
               readOnly: true
               mountPath: "/opt/hyperspace/config-core"

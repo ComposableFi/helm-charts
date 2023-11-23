@@ -33,9 +33,9 @@ serviceAccount:
 args:
   - relay
   - --config-a
-  - /opt/hyperspace/config-a.toml
+  - /opt/hyperspace/config-a/config-a.toml
   - --config-b
-  - /opt/hyperspace/config-b.toml
+  - /opt/hyperspace/config-b/config-b.toml
   - --config-core
   - /opt/hyperspace/config-core/config-core.toml
 
