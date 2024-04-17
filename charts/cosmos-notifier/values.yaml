@@ -1,3 +1,9 @@
+appConfig:
+  COSMOS_ENDPOINT: ""
+  SLACK_WEBHOOK_URL: https://hooks.slack.com/services/xxx/xxx/xxx
+  FETCH_INTERVAL: 15s
+  CHAIN_ID: ""
+
 replicaCount: 1
 
 image:
