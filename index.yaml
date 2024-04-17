@@ -71,6 +71,17 @@ entries:
     urls:
     - https://github.com/ComposableFi/helm-charts/releases/download/composable-ibc-0.1.0/composable-ibc-0.1.0.tgz
     version: 0.1.0
+  cosmos-notifier:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-04-17T09:03:15.085839048Z"
+    description: A Helm chart for Kubernetes to deploy cosmos-notifier
+    digest: 41ddd14eb28c97f0b92e49793b60cc077d33f066ec6f16b80d4e0edc3cdc95b9
+    name: cosmos-notifier
+    type: application
+    urls:
+    - https://github.com/ComposableFi/helm-charts/releases/download/cosmos-notifier-0.1.0/cosmos-notifier-0.1.0.tgz
+    version: 0.1.0
   indexer:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -82,4 +93,4 @@ entries:
     urls:
     - https://github.com/ComposableFi/helm-charts/releases/download/indexer-0.1.0/indexer-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-23T05:45:49.161140645Z"
+generated: "2024-04-17T09:03:15.085928905Z"
