@@ -9,13 +9,19 @@ image:
   pullPolicy: IfNotPresent
 
 # Number of replicas
-replicaCount: 2
+replicaCount: 1
 
 # Service configuration
 service:
   type: ClusterIP
-  port: 80
-
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+    - name: custom
+      port: 3030
+      targetPort: 3030
+      
 # Ingress configuration
 ingress:
   enabled: false
