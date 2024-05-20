@@ -11,34 +11,38 @@ spec:
       {{- include "indexer.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      annotations: {{- toYaml .Values.podAnnotations | nindent 8 }}
       labels:
         {{- include "indexer.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "indexer.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.securityContext | nindent 8 }}
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ include "indexer.name" . }}
+        - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.service.targetPort }}
+            - containerPort: {{ .Values.service.port }}
           env:
-            - name: DB_HOST
-              value: {{ .Values.env.DB_HOST }}
-            - name: DB_PORT
-              value: {{ .Values.env.DB_PORT }}
-            - name: DB_DATABASE
-              value: {{ .Values.env.DB_DATABASE }}
-            - name: DB_USERNAME
+            {{- range $key, $value := .Values.appConfig.env }}
+            - name: {{ $key }}
+              value: "{{ $value }}"
+            {{- end }}
+            {{- if .Values.appSecret.enabled }}
+            {{- range $key, $value := .Values.appSecret.env }}
+            - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: db-secrets
-                  key: username
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: db-secrets
-                  key: password
-            - name: NODE_ENV
-              value: {{ .Values.env.NODE_ENV }}
+                  name: {{ $value }}
+                  key: {{ $key | lower }}
+            {{- end }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      affinity:
+        {{- toYaml .Values.affinity | nindent 8 }}
