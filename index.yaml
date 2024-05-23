@@ -95,6 +95,16 @@ entries:
   indexer:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-05-23T14:52:12.029265615Z"
+    description: A Helm chart of Indexer for Kubernetes
+    digest: a3d9f5c42e334359d38f3a55489ad7c8aa7e934f96bc94688990eb4617644c58
+    name: indexer
+    type: application
+    urls:
+    - https://github.com/ComposableFi/helm-charts/releases/download/indexer-0.1.1/indexer-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-08-31T07:38:39.741562271Z"
     description: A Helm chart of Indexer for Kubernetes
     digest: 360819e88c72a3b74222dca3377c0ff2dcfa1fcdd175507833a7d9a669b9e6f6
@@ -103,4 +113,4 @@ entries:
     urls:
     - https://github.com/ComposableFi/helm-charts/releases/download/indexer-0.1.0/indexer-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-17T11:03:11.569848191Z"
+generated: "2024-05-23T14:52:12.029292355Z"
