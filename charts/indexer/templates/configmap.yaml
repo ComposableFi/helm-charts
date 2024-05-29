@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}
   labels:
-    {{- include "autocompounder.labels" . | nindent 4 }}
+    {{- include "indexer.labels" . | nindent 4 }}
 data:
 {{- range $key, $value := .Values.appConfig.env }}
   {{ $key | quote }}: {{ $value | quote }}
