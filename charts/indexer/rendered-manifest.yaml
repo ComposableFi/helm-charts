@@ -1,0 +1,117 @@
+---
+# Source: indexer/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: indexer-staging
+  labels:
+    helm.sh/chart: indexer-0.1.3
+    app.kubernetes.io/name: indexer
+    app.kubernetes.io/instance: indexer-staging
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: indexer/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: indexer-staging
+  labels:
+    helm.sh/chart: indexer-0.1.3
+    app.kubernetes.io/name: indexer
+    app.kubernetes.io/instance: indexer-staging
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  "NODE_ENV": "production"
+---
+# Source: indexer/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: indexer-staging
+  labels:
+    helm.sh/chart: indexer-0.1.3
+    app.kubernetes.io/name: indexer
+    app.kubernetes.io/instance: indexer-staging
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: indexer
+    app.kubernetes.io/instance: indexer-staging
+---
+# Source: indexer/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indexer-staging
+  labels:
+    helm.sh/chart: indexer-0.1.3
+    app.kubernetes.io/name: indexer
+    app.kubernetes.io/instance: indexer-staging
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: indexer
+      app.kubernetes.io/instance: indexer-staging
+  template:
+    metadata:
+      annotations:
+        {}
+      labels:
+        app.kubernetes.io/name: indexer
+        app.kubernetes.io/instance: indexer-staging
+    spec:
+      serviceAccountName: indexer-staging
+      securityContext:
+        {}
+      imagePullSecrets:
+        - name: registry-secret
+      containers:
+        - name: indexer
+          image: "ghcr.io/composablefi/composable-indexer:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: NODE_ENV
+              value: "production"
+          resources:
+            {}
+      nodeSelector:
+        {}
+      tolerations:
+        []
+      affinity:
+        {}
+---
+# Source: indexer/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "indexer-staging-test-connection"
+  labels:
+    helm.sh/chart: indexer-0.1.3
+    app.kubernetes.io/name: indexer
+    app.kubernetes.io/instance: indexer-staging
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['indexer-staging:8080']
+  restartPolicy: Never
