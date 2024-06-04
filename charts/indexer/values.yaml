@@ -16,6 +16,9 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
+imagePullSecrets:
+  name: "PLACEHOLDER_REGISTRY_SECRET_NAME"
+
 # Service configuration
 service:
   type: ClusterIP
