@@ -16,6 +16,8 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
+imagePullSecrets: []
+
 # Service configuration
 service:
   type: ClusterIP
