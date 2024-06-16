@@ -1,0 +1,58 @@
+# General application settings
+replicaCount: 1
+
+# Optional name and fullname overrides
+nameOverride: ""
+fullnameOverride: ""
+
+# Service Account
+serviceAccount:
+  create: true
+  name: ""
+
+# Image configuration
+image:
+  repository: ghcr.io/composablefi/composable-indexer
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+# Application configuration environment variables
+appConfig:
+  env:
+    NODE_ENV: production
+
+# Application secret environment variables
+appSecret:
+  enabled: true
+  env:
+    DB_HOST: localhost
+    DB_PORT: 5432
+    DB_DATABASE: mydatabase
+    DB_USERNAME: secretKeyRefName  
+    DB_PASSWORD: secretKeyRefName
+    
+# Security context for the deployments
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 3000
+  fsGroup: 2000
+  
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
